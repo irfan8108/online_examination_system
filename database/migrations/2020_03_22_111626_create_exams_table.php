@@ -19,7 +19,9 @@ class CreateExamsTable extends Migration
             $table->date('exam_date');
             $table->integer('exam_duration')->comment('in Seconds');
             $table->integer('marks');
-            $table->double('negative_marking')->comment('Negative Marks for Single Wrong Answer');
+            $table->text('subjects')->nullable()->comment('jsonFormat as {"SubjectName":"NoOfQuestion"}');
+            $table->integer('positive_marking')->comment('Positive Marks for Every Right Answer');
+            $table->double('negative_marking')->comment('Negative Marks for Every Wrong Answer');
             $table->boolean('live_scoring')->default(false);
             $table->boolean('status')->default(false);
             $table->timestamps();
