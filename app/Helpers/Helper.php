@@ -32,9 +32,34 @@ class Helper{
 		}
 		return view('inc.'.$file)->with($data);
 	}
+	
+	/**
+	* CHECK FOR DOC/IMAGE
+	* @return image with full path
+	* or @return string as it is
+	*/
+	public static function textOrImage($string){
+		$isImage = false;
+		$DocImgformats = ['jpg','jpeg','png','gif'];
+		foreach ($DocImgformats as $format) {
+			if(strpos($string, $format)){
+				$isImage = true;
+			}
+		}
 
-	public static function test(){
-		return "working..";
+		if($isImage){
+			$fileWithPath = asset('uploads').'/'.$string;
+			// return $fileWithPath;
+			// RETURN HTML ELEMENT, IF FILE EXIST
+			if(\File::exists(public_path().'/uploads/'.$string)){
+		        return "<img src='$fileWithPath'>";
+		    }
+
+		    // RETURN WARNING WITH MESSAGE
+		    return "<span class='badge badge-danger'><i class='fa fa-ban'></i> File Not Found! Please Update The Question</span>";
+		}
+
+		return $string;
 	}
 
 }
