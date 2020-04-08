@@ -18,7 +18,7 @@ class CreateAnswersTable extends Migration
             $table->integer('user_id');
             $table->integer('exam_id');
             $table->integer('question_id');
-            $table->integer('answer')->nullable();
+            $table->string('answer')->comment('Accept Single Character such as A/B/C/D')->value(1)->nullable();
             $table->boolean('marked_for_review')->nullable();
             $table->timestamps();
         });

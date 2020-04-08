@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLiveSessionsTable extends Migration
+class CreateExamSessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateLiveSessionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('live_sessions', function (Blueprint $table) {
+        Schema::create('exam_sessions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
             $table->integer('exam_id');
             $table->integer('remaining_time')->comment('in_seconds');
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateLiveSessionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('live_sessions');
+        Schema::dropIfExists('exam_sessions');
     }
 }

@@ -21,7 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->enum('type', ['MC'])->default('MC');
             $table->string('title');
             $table->text('available_answers')->comment('Json Format');
-            $table->integer('right_answer');
+            $table->string('right_answer')->value(1)->comment('Accept Single Character such as A/B/C/D. Modify later, if type will increase');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
