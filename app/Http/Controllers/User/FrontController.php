@@ -49,7 +49,8 @@ class FrontController extends \App\Http\Controllers\ProcessController
     	// dd(session()->all());
 
     	$data['qna'] = json_encode($this->questions);
-    	// dd($data['qp']);
+    	// dd(json_decode($data['qna']));
+        // dd($data['qp']);
     	// dd($this->questions);
 
     	return view('user.exam')->with($data);

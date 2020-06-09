@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('test', 'ProcessController@test');
+
 Route::get('admin', 'Admin\FrontController@index')->name('welcome');
 
 Route::match(['get','post'], 'admin/crud/{type}/{cmd?}/{cmd_id?}', 'Admin\FrontController@crud')->name('crud');

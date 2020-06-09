@@ -136,7 +136,7 @@ class ProcessController extends Controller
 			$result['answer'] = $answerArr[0]['answer'];
 			$result['marked_for_review'] = $answerArr[0]['marked_for_review'];
 
-			if(is_null($result['answer'])){
+			if(empty($result['answer'])){
 				if( (is_null($result['marked_for_review'])) || (!$result['marked_for_review']) ) {
 					// return ['not_answered' => true, 'answer'=>false, 'marked' => false, 'Unattempted' => false];
 					return 'not_answered';
@@ -219,9 +219,10 @@ class ProcessController extends Controller
 	}
 
 	public function examSession(){
+		// return "working...";
+		// return response()->json(['status' => true, 'message' => 'worker working...'], 200);
+
 		$this->setMemberVariables();
-		
-		// return response()->json(['status' => true, 'message' => 'Exam is Live'], 200);
 		return response()->json(['status' => true, 'time_left' => $this->updateExamSession(), 'exam' => $this->exam], 200);
 	}
 
@@ -259,6 +260,10 @@ class ProcessController extends Controller
 	}
 
 	public function postAnswer(Request $request){
+		// return "working...";
+		$request = (object)$request->json()->all();
+		// return response()->json(['status' => false, 'data' => $request], 200);
+
 		// SET THE MEMBER DATA TO ACCESS IT
 		$this->setMemberVariables();
 
@@ -278,6 +283,7 @@ class ProcessController extends Controller
 				
 			// UPDATE QUESTIONS
 			$this->questions[$request->serial_number][$request->question_id]['qna']['answer'][0] = $answer[0];
+			// $temp[$key]['qpState'] = $this->isQuestionAttempted($temp[$key]['answer']);
 
 			// return response()->json(['status' => false, 'answer' => $answer[0]], 200);
 
@@ -315,7 +321,13 @@ class ProcessController extends Controller
 
 	protected function submitExam(){
 		$this->setMemberVariables();
-		return \App\ExamSession::whereExam_id($this->exam->id)->whereUser_id(\Auth::user()->id)->update(['status' => false]);
+		return \App\ExamSession::whereExam_id($this->exam->id)->whereUser_id(\Auth::user()->id)->update(['status' => 0]);
+	}
+
+	protected function test(){
+		$temp = ['One', 'Two', 'Three'];
+		$temp = (object)$temp;
+		dd($temp);
 	}
 
 }
